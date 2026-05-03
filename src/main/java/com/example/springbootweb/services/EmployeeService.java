@@ -52,9 +52,11 @@ public class EmployeeService {
     }
 
     public EmployeeDTO updateEmployeeAll(EmployeeDTO input, Long employeeId) {
+        EmployeeEntity e = employeeRepository.findById(employeeId).orElse(null);
+        if(e == null) return null;
         input.setId(employeeId);
-        EmployeeEntity e = modelMapper.map(input, EmployeeEntity.class);
-        return modelMapper.map(employeeRepository.save(e), EmployeeDTO.class);
+        EmployeeEntity er = modelMapper.map(input, EmployeeEntity.class);
+        return modelMapper.map(employeeRepository.save(er), EmployeeDTO.class);
     }
 
     public EmployeeDTO updateEmployee(Map<String, Object> input, Long employeeId) {
